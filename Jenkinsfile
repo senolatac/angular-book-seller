@@ -3,7 +3,6 @@ pipeline {
 
     tools {
         nodejs "${env.LATEST_NODE}"
-        hudson.plugins.sonar.SonarRunnerInstallation "sha-sonar-scanner"
     }
 
     environment {
@@ -35,7 +34,7 @@ pipeline {
               script {
                   //def scannerHome = tool 'sha-sonar-scanner';
                   withSonarQubeEnv(installationName: 'sha-sonar-server') {
-                    sh "sonar-scanner  -Dsonar.branch.name=$BRANCH_NAME -Dsonar.projectKey=${SONARQUBE_PROJECT_KEY} -Dsonar.projectName=${PROJECT_NAME} -Dsonar.exclusions=node_modules/*,**/*.spec.ts -Dsonar.sources=src"
+                    sh "${tool('sonar-scanner')}/bin/sonar-scanner  -Dsonar.branch.name=$BRANCH_NAME -Dsonar.projectKey=${SONARQUBE_PROJECT_KEY} -Dsonar.projectName=${PROJECT_NAME} -Dsonar.exclusions=node_modules/*,**/*.spec.ts -Dsonar.sources=src"
                   }
               }
          }
