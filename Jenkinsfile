@@ -3,7 +3,6 @@ pipeline {
 
     tools {
         nodejs "${env.LATEST_NODE}"
-        maven "Maven3"
     }
 
     stages {
@@ -26,11 +25,14 @@ pipeline {
             }
        }
        stage('SonarQube Analysis') {
-          steps {
-            withSonarQubeEnv(installationName: 'sha-sonar-server') {
-               sh "mvn clean verify sonar:sonar -Dsonar.exclusions=node_modules/*,**,*.spec.ts -Dsonar.branch.name=$BRANCH_NAME -Dsonar.projectKey=senolatac_angular-book-seller_AY8rMK_KBUsYXRYLyB8n -Dsonar.projectName='angular-book-seller'"
-            }
-          }
-      }      
+         steps {
+              script {
+                  def scannerHome = tool 'SonarScanner';
+                  withSonarQubeEnv(installationName: 'sha-sonar-server') {
+                    sh "${scannerHome}/bin/sonar-scanner"
+                  }
+              }
+         }
+      }       
     }
 }
