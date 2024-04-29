@@ -13,7 +13,7 @@ pipeline {
         }
         stage("Build") {
                     steps {
-                        sh "npm run build -openssl-legacy-provider"
+                        sh "npm run build"
                     }
        }
     }
