@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        npm "${env.LATEST_NODE}"
+        nodejs "${env.LATEST_NODE}"
     }
 
     stages {
