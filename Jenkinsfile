@@ -6,15 +6,21 @@ pipeline {
     }
 
     stages {
-       stage('Build and Test') {
+       stage('Install') {
             steps {
                 sh 'npm install'
             }
         }
         stage("Build") {
-                    steps {
-                        sh "npm run build"
-                    }
+            steps {
+                 sh "npm run build"
+             }
+       }
+       stage('Archive') {
+            steps {
+                 sh 'tar -cvzf dist.tar.gz --strip-components=1 dist'
+                 archive 'dist.tar.gz'
+            }
        }
     }
 }
