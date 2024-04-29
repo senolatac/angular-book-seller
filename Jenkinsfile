@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         nodejs "${env.LATEST_NODE}"
-        scannerHome "sha-sonar-scanner"
+        hudson.plugins.sonar.SonarRunnerInstallation "sha-sonar-scanner"
     }
 
     environment {
