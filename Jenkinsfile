@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        npm "${env.LATEST_NODE}"
+    }
+
     stages {
        stage('Build and Test') {
             steps {
