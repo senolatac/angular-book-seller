@@ -3,7 +3,13 @@ pipeline {
 
     tools {
         nodejs "${env.LATEST_NODE}"
+        scannerHome = 'sha-sonar-scanner'
     }
+
+    environment {
+        SONARQUBE_PROJECT_KEY = "senolatac_angular-book-seller_AY8rMK_KBUsYXRYLyB8n"
+        PROJECT_NAME = "angular-book-seller"
+    }  
 
     stages {
        stage('Install') {
@@ -27,9 +33,9 @@ pipeline {
        stage('SonarQube Analysis') {
          steps {
               script {
-                  def scannerHome = tool 'sha-sonar-scanner';
+                  //def scannerHome = tool 'sha-sonar-scanner';
                   withSonarQubeEnv(installationName: 'sha-sonar-server') {
-                    sh "${scannerHome}/bin/sonar-scanner"
+                    sh "sonar-scanner  -Dsonar.branch.name=$BRANCH_NAME -Dsonar.projectKey=${SONARQUBE_PROJECT_KEY} -Dsonar.projectName=${PROJECT_NAME} -Dsonar.exclusions=node_modules/*,**/*.spec.ts -Dsonar.sources=src"
                   }
               }
          }
