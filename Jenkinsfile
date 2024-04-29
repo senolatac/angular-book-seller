@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         nodejs "${env.LATEST_NODE}"
-        scannerHome = 'sha-sonar-scanner'
+        scannerHome "sha-sonar-scanner"
     }
 
     environment {
