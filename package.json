@@ -5,7 +5,7 @@
     "ng": "ng",
     "config": "node set-env.js",
     "start": "node server.js",
-    "build": "ng build",
+    "build": "export NODE_OPTIONS=--openssl-legacy-provider; ng build",
     "build-prod": "$(npm bin)/ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
